@@ -1,4 +1,4 @@
-import { login } from '@/api/user'
+import { loginApi,infoApi } from '@/api/user'
 import { cookget, cookset } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -17,23 +17,28 @@ const mutations = {
 //   SET_INTRODUCTION: (state, introduction) => {
 //     state.introduction = introduction
 //   },
-//   SET_NAME: (state, name) => {
-//     state.name = name
-//   },
+  SET_NAME: (state, name) => {
+    state.name = name
+  },
 //   SET_AVATAR: (state, avatar) => {
 //     state.avatar = avatar
 //   },
-//   SET_ROLES: (state, roles) => {
-//     state.roles = roles
-//   }
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+  }
+}
+const getters = {
+  getRoles: (state) => {
+    return state.roles
+  }
 }
 
 const actions = {
   // user login
   login({ commit }, userInfo) {
     return new Promise((resolve, reject) => {
-      login().then(response => {
-        // console.log(response)
+      loginApi().then(response => {
+        commit('SET_TOKEN','token')
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -41,34 +46,23 @@ const actions = {
     })
   },
 
-  // get user info
-//   getInfo({ commit, state }) {
-//     return new Promise((resolve, reject) => {
-//       getInfo(state.token).then(response => {
-//         const { data } = response
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      infoApi(state.token).then(response => {
+        const {name,roles} = response.data
+        commit('SET_NAME',name)
+        commit('SET_ROLES',roles)
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
 
-//         if (!data) {
-//           reject('Verification failed, please Login again.')
-//         }
+  // getMenu({commit, state}) {
 
-//         const { roles, name, avatar, introduction } = data
-
-//         // roles must be a non-empty array
-//         if (!roles || roles.length <= 0) {
-//           reject('getInfo: roles must be a non-null array!')
-//         }
-
-//         commit('SET_ROLES', roles)
-//         commit('SET_NAME', name)
-//         commit('SET_AVATAR', avatar)
-//         commit('SET_INTRODUCTION', introduction)
-//         resolve(data)
-//       }).catch(error => {
-//         reject(error)
-//       })
-//     })
-//   },
-
+  // }
+  
 //   // user logout
 //   logout({ commit, state }) {
 //     return new Promise((resolve, reject) => {
@@ -123,6 +117,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
   actions
 }

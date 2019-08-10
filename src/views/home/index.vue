@@ -1,20 +1,36 @@
 <template>
-    <h1>im home page</h1>
+  <div>
+    <HomeTop/>
+    <HomeCard/>
+    <HomeShow/>
+  </div>
 </template>
-
 <script>
-import {role} from '@/api/role'
-import { constants } from 'crypto';
+import { mapGetters } from "vuex";
+import HomeTop from './HomeTop'
+import HomeCard from './HomeCard'
+import HomeShow from './HomeShow'
+
 export default {
-  name: 'ErrorTestA',
-  mounted(){
-    role()
-    .then(data=> {
-      return data.data
-    })
-    .then(data=> {
-      console.log(data)
-    })
+  data() {
+    return {
+      kkk:[1,2,3],
+      arr:[]
+    }
+  },
+  computed: {
+    ...mapGetters('user', ['getRoles'])
+  },
+  mounted() {
+    for(var i =0;i<50;i++) {
+      this.arr.push(i)
+    }
+    console.log(this.arr)
+  },
+  components:{
+    HomeTop,
+    HomeCard,
+    HomeShow
   }
-}
+};
 </script>

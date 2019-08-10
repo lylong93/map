@@ -1,7 +1,10 @@
 import axios from 'axios'
+import config from '@/config'
 import {cookset} from '@/utils/auth'
 
-const http = axios
+const http = axios.create({
+    baseURL: config.baseUrl
+})
 
 http.interceptors.request.use(config => {
     config.headers['Token'] = cookset()
@@ -9,9 +12,7 @@ http.interceptors.request.use(config => {
 })
 
 http.interceptors.response.use(response => {
-    // config.headers['Token'] = cookset()
     return response.data
 })
-
 
 export default http
