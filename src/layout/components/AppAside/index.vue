@@ -25,9 +25,6 @@ export default {
       'menus'
     ]),
   },
-  mounted(){
-    console.log(this.menus)
-  },
   methods: {
     change() {
       this.isCollapse = !this.isCollapse;

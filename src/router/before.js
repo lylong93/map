@@ -27,7 +27,6 @@ router.beforeEach(async (to,from,next)=>{
             await store.dispatch('route/setMenus',menus)
             
             has = true
-            console.log(router.options)
             next()
             NProgress.done()
         }

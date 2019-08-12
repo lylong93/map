@@ -48,7 +48,7 @@ export default {
         this.login()
         .then(data=> {
           this.$router.push({ path: '/',})
-          console.log(data)
+          // console.log(data)
         })
         .catch(err => {
           console.log(err)

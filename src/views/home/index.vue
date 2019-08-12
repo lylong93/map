@@ -25,7 +25,6 @@ export default {
     for(var i =0;i<50;i++) {
       this.arr.push(i)
     }
-    console.log(this.arr)
   },
   components:{
     HomeTop,

@@ -23,4 +23,17 @@ export default [
         path: '/tow',
         component: resolve => require(['@/views/tow/index'], resolve)
     },
+    {
+        path: '/live',
+        name:'live',
+        redirect:'/live/index',
+        component: layout,
+        children:[
+            {   
+                path:'/live/index',
+                name:'live',
+                component: resolve => require(['@/views/live/index'], resolve),
+            }
+        ]
+    },
 ]
