@@ -23,6 +23,24 @@ export default [
                 component: resolve => require(['@/views/about'], resolve),
             }
         ],
+    },{
+        path:'/table',
+        component:layout,
+        redirect:'/table/onetable',
+        name:'table',
+        children:[
+            {
+                path:'/table/onetable',
+                name:'onetable',
+                component:resolve=> require(['@/views/table/onetable'],resolve)
+            },
+            {
+                path:'/table/towtable',
+                name:'towtable',
+                component:resolve=> require(['@/views/table/towtable'],resolve)
+            }
+        ]
+        
     },
     {
         path: '/404',

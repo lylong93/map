@@ -11,25 +11,26 @@ NProgress.configure({ showSpinner: false })
 let has = false
 
 router.beforeEach(async (to,from,next)=>{
-
-    NProgress.start()
-
+  
+    // NProgress.start()
     if(has) {
         next()
-        NProgress.done()
+        // NProgress.done()
     }else {
-        if(to.path === '/home') {
+        // if(to.path === '/home') {
             const d  = await store.dispatch('user/getInfo')
             let routers = parse(extend,d.data.routers)
             let menus = base.concat(routers)
             
             await router.addRoutes(routers)
             await store.dispatch('route/setMenus',menus)
-            
+
             has = true
             next()
-            NProgress.done()
-        }
+            // NProgress.done()
+        // }else {
+        //     next()
+        // }
     }
 })
 
